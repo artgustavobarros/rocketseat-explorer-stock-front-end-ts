@@ -1,42 +1,14 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
-import Product from "../pages/Product";
-import Suppliers from "../pages/Suppliers";
-import SalesReport from "../pages/SalesReport";
-import NotFound from "../pages/NotFound";
-import SignIn from "../pages/SignIn";
-import SignUp from "../pages/SignUp";
+import { RouterProvider } from "react-router-dom"
+import { useAuth } from "../hooks/context/useAuth"
+import { appRoutes, authRoutes } from "./route-paths"
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home/>
-  },
-  {
-    path: '/product',
-    element: <Product/>
-  },
-  {
-    path: '/suppliers',
-    element: <Suppliers/>
-  },
-  {
-    path: '/sales-report',
-    element: <SalesReport/>
-  },
-  {
-    path: '*',
-    element: <NotFound/>
-  },
-  {
-    path: '/signin',
-    element: <SignIn/>
-  },
-  {
-    path: '/signup',
-    element: <SignUp/>
-  }
+const Routes = () =>{
 
-])
+  const {user} = useAuth()
 
-export default router
+  return(
+    <RouterProvider router={user? appRoutes: authRoutes}/>
+  )
+}
+
+export default Routes

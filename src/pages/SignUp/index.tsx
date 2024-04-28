@@ -1,15 +1,36 @@
 import { useState } from "react";
 import { FiMail, FiUser, FiLock, FiArrowLeft } from 'react-icons/fi';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Form } from "./styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import { api } from "../../services/api/api";
 
 const SignUp = () => {
   
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate()
+
+  const handleSignUp = async () =>{
+    if (!name || !email || !password){
+      return alert('Fill out all fields')
+    }
+
+    try{
+      await api.post('/users', {name, email, password})
+      alert('Registration completed sucessfully')
+      navigate('/')
+    }catch(err){
+      if(err){
+        alert(err.response.data.message)
+      }else{
+        alert('Não foi possível realizar o cadastro')
+      }
+    }
+  }
 
 
   return (
@@ -40,6 +61,7 @@ const SignUp = () => {
 
         <Button
           title="Cadastrar"
+          onClick={handleSignUp}
         />
 
         <Link to="/">
