@@ -4,7 +4,9 @@ import { useAuth } from "../../hooks/context/useAuth"
 
 const Header = () =>{
 
-  const {signOut} = useAuth()
+  const {signOut, data} = useAuth()
+
+  const {user} = data
 
   return(
     <Container>
@@ -12,9 +14,9 @@ const Header = () =>{
 
       <aside>
         <User>
-            <span>Olá, <strong>Arthur</strong></span>
+            <span>Olá, <strong>{user.name}</strong></span>
             <small>
-              <FiUser/> Perfil do usuário 
+              <FiUser/> Perfil de {user.role}
             </small>
         </User>
       </aside>

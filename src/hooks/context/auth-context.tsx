@@ -19,8 +19,6 @@ const AuthProvider = ({children}: AuthProviderProps) =>{
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setData({user, token})
-      console.log(user)
-      console.log(token)
       
     }catch(err){
       if(err.response){
@@ -53,7 +51,7 @@ const AuthProvider = ({children}: AuthProviderProps) =>{
   return(
     <AuthContext.Provider
       value={{
-        user: data.user,
+        data,
         signIn,
         signOut
       }}
